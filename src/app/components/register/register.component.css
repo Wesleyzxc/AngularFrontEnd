@@ -1,0 +1,33 @@
+.input {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+input {
+  display: block;
+  width: 15%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+.btn {
+  width: 100px;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+}

@@ -1,0 +1,17 @@
+<h1>Register with your email</h1>
+<form class="form" (ngSubmit)="onSubmit()" [formGroup]="userRegForm">
+  <div class="input">
+    <label for="email">Email: </label>
+    <input type="email" formControlName="email" />
+  </div>
+  <div class="input">
+    <label for="password">Password: </label>
+    <input type="password" formControlName="password" />
+  </div>
+  <div style="text-align: center; color: red" *ngIf="show">
+    {{ this.errorMsg }}
+  </div>
+  <div class="input">
+    <input type="submit" class="btn" />
+  </div>
+</form>
