@@ -6,28 +6,29 @@
 
 input {
   display: block;
-  width: 15%;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
   text-align: center;
-  padding: 10px;
-  margin: 10px;
+  padding: 5px;
 }
 
 label {
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.5;
-  text-align: center;
-  padding: 10px;
-  margin: 10px;
+  text-align: left;
+  padding: 5px;
+  margin: 5px;
 }
 
 .btn {
   width: 100px;
   font-weight: 400;
-  color: #212529;
+  border: none;
+  border-radius: 5px;
+  background-color: #3f99f3;
+  color: black;
   text-align: center;
 }

@@ -1,14 +1,31 @@
 <h1>Register with your email</h1>
 <form class="form" (ngSubmit)="onSubmit()" [formGroup]="userRegForm">
   <div class="input">
-    <label for="email">Email: </label>
-    <input type="email" formControlName="email" />
+    <label for="fName"
+      >First Name: <input type="text" formControlName="fName" />
+    </label>
   </div>
   <div class="input">
-    <label for="password">Password: </label>
-    <input type="password" formControlName="password" />
+    <label for="lName"
+      >Last Name: <input type="text" formControlName="lName"
+    /></label>
   </div>
-  <div style="text-align: center; color: red" *ngIf="show">
+  <div class="input">
+    <label for="email">
+      Email: <input type="email" formControlName="email"
+    /></label>
+  </div>
+  <div class="input">
+    <label for="password"
+      >Password: <input type="password" formControlName="password"
+    /></label>
+  </div>
+  <div class="input">
+    <label for="cPassword"
+      >Confirm Password: <input type="password" formControlName="cPassword" />
+    </label>
+  </div>
+  <div style="text-align: center; color: red; padding: 5px" *ngIf="show">
     {{ this.errorMsg }}
   </div>
   <div class="input">
