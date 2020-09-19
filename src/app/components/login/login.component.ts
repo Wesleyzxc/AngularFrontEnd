@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   show: boolean = false; // show hidden div
   errorMsg: string = '';
-
+  @Input() token: string;
+  @Output() passToken: EventEmitter<string> = new EventEmitter();
   userRegForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -26,14 +31,25 @@ export class LoginComponent implements OnInit {
       // valid details
       this.show = false;
       this.errorMsg = '';
-      console.log(email);
-      console.log(password);
+      this.token = this.tokenService.logIn(
+        this.userRegForm.get('email').value,
+        this.userRegForm.get('password').value
+      );
+      console.log(this.token);
+      if (!this.token) {
+        // login failed
+        this.show = true;
+        this.errorMsg = 'Please check your email/password combination.';
+      } else {
+        this.show = false;
+        this.errorMsg = '';
+      }
     } else {
       //invalid email or missing pw
       this.show = true;
-      if (this.userRegForm.get('email').status == 'INVALID')
+      if (this.userRegForm.get('email').status != 'VALID')
         this.errorMsg = 'Please check your email format!';
-      else if (this.userRegForm.get('password').status == 'INVALID')
+      else if (this.userRegForm.get('password').status != 'VALID')
         this.errorMsg = 'Please enter your password!';
     }
   }

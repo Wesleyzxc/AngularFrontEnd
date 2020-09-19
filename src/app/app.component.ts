@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title: string = 'Resync Technical Test';
+  loggedIn: boolean = false;
+  token: string;
 
   constructor() {}
 }
