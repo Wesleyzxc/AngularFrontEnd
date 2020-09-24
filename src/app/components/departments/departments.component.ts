@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../services/token.service';
+
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: 'app-departments',
+  templateUrl: './departments.component.html',
+  styleUrls: ['./departments.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class DepartmentsComponent implements OnInit {
   constructor(public tokenService: TokenService) {}
 
   ngOnInit(): void {}

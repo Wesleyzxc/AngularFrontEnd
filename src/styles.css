@@ -13,13 +13,14 @@ h3 {
 body {
   margin: 2em;
 }
+
 body,
-input[type="text"],
-button {
-  color: #333;
-  font-family: Cambria, Georgia;
-}
+input[type="text"]
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
 }

@@ -1,0 +1,105 @@
+<div class="main">
+  <div style="text-align: right; padding-top: 10px">
+    <button (click)="openForms()">Add new organisation</button>
+  </div>
+  <form
+    class="form"
+    (ngSubmit)="addNewOrg()"
+    [formGroup]="addOrgForm"
+    *ngIf="addOrg"
+  >
+    <div class="input">
+      <label for="orgName">
+        Organisation Name: <input type="name" formControlName="orgName"
+      /></label>
+    </div>
+    <div class="input">
+      <label for="owner"
+        >Owner: <input type="name" formControlName="owner"
+      /></label>
+    </div>
+    <div class="input">
+      <label for="address"
+        >Address: <input type="name" formControlName="address"
+      /></label>
+    </div>
+    <div class="input">
+      <label
+        >Select Country:
+        <select
+          class="form-control"
+          (change)="onChangeCountry($event.target.value)"
+          formControlName="country"
+        >
+          <option value="-1"></option>
+          <option
+            *ngFor="let country of countryInfo; let i = index"
+            value="{{ i }}"
+          >
+            {{ country.CountryName }}
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <div class="input">
+      <label
+        >Select State:
+        <select
+          class="form-control"
+          (change)="onChangeState($event.target.value)"
+          formControlName="state"
+        >
+          <option value="{{ null }}"></option>
+          <option *ngIf="stateInfo == ''" value="-1">--Select State--</option>
+          <option
+            *ngFor="let state of stateInfo; let j = index"
+            value="{{ j }}"
+          >
+            {{ state.StateName }}
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <div class="input">
+      <label
+        >Select City:
+        <select class="form-control" formControlName="city">
+          <option *ngIf="cityInfo == ''" value="-1">--Select CIty--</option>
+          <option *ngFor="let city of cityInfo; let k = index" value="{{ k }}">
+            {{ city }}
+          </option>
+        </select>
+      </label>
+    </div>
+    <div style="text-align: center; color: red; padding: 5px">
+      {{ errorMsg }}
+      <span style="color: green">{{ saveMsg }}</span>
+    </div>
+
+    <div class="input">
+      <button type="submit" class="btn">Submit</button>
+    </div>
+  </form>
+  <table mat-table [dataSource]="organisations" class="mat-elevation-z8">
+    <ng-container
+      [matColumnDef]="column"
+      *ngFor="let column of displayedColumns; let i = index"
+    >
+      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+      <td mat-cell *matCellDef="let org">{{ org[dbColumns[i]] }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+  <!-- There should be add organization button to add new organization. Organization
+  will have information like, organization name, owner, address, city, state,
+  country. List of existing organization detail should be displayed in tabular
+  form with EDIT & DELETE Option. When Edit clicked: User should redirect to the
+  organization edit page with the selected organization details to update the
+  information. When Delete clicked: User should get pop-up to confirm the
+  action. If user press YES, delete the organization, department under that
+  organization as well as employees under that organization -->
+</div>

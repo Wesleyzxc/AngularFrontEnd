@@ -1,0 +1,33 @@
+ng-sidebar-container {
+  height: 100vh;
+}
+
+.content button {
+  width: 100%;
+  margin-left: auto;
+  font-size: 16px;
+  padding: 15px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+}
+
+#menu {
+  border: none;
+  outline: none;
+  margin-left: auto;
+  font-size: 16px;
+  padding: 15px 32px;
+  font-weight: 400;
+  position: absolute;
+  top: 35px;
+  background: #0e4686;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: x-large;
+}
+
+button:hover {
+  background-color: #0e4686;
+}

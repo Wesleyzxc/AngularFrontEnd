@@ -1,0 +1,46 @@
+.main {
+  text-align: center;
+}
+button,
+.btn {
+  margin-left: auto;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 15px 32px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+}
+
+button:hover {
+  background-color: darkgrey;
+}
+
+table {
+  margin-top: 5%;
+  border: 1px solid;
+  text-align: left;
+  width: 100%;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+input,
+.form-control {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  padding: 5px;
+}
+
+label {
+  color: #495057;
+  text-align: left;
+  font-weight: 600;
+}

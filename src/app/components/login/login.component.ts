@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from '../../services/token.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -31,19 +33,18 @@ export class LoginComponent implements OnInit {
       // valid details
       this.show = false;
       this.errorMsg = '';
-      this.token = this.tokenService.logIn(
-        this.userRegForm.get('email').value,
-        this.userRegForm.get('password').value
-      );
-      console.log(this.token);
-      if (!this.token) {
-        // login failed
-        this.show = true;
-        this.errorMsg = 'Please check your email/password combination.';
-      } else {
-        this.show = false;
-        this.errorMsg = '';
-      }
+      this.tokenService.logIn(email, password).then((res) => {
+        if (this.tokenService.loggedIn) {
+          // logged in successfully
+          this.router.navigate(['/']);
+          this.show = false;
+          this.errorMsg = '';
+        } else {
+          // login failed
+          this.show = true;
+          this.errorMsg = 'Please check your email/password combination.';
+        }
+      });
     } else {
       //invalid email or missing pw
       this.show = true;

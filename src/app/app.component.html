@@ -1,4 +1,31 @@
 <div>
   <app-header></app-header>
-  <router-outlet></router-outlet>
+  <button id="menu" (click)="_toggleSidebar()">≡ Menu</button>
+  <ng-sidebar-container>
+    <!-- A sidebar -->
+    <ng-sidebar [(opened)]="_opened">
+      <!-- Non-logged in menu -->
+      <div *ngIf="!tokenService.loggedIn" class="content">
+        <button onclick="location.href='/'">Home</button><br />
+        <button onclick="location.href='/login'">Login</button><br />
+        <button onclick="location.href='/register'">Register</button>
+      </div>
+      <!-- Logged in menu -->
+      <div *ngIf="tokenService.loggedIn" class="content">
+        <button (click)="retainLogin('/')">Home</button><br />
+        <button (click)="retainLogin('/organisations')">Organisation</button
+        ><br />
+        <button (click)="retainLogin('/departments')">Departments</button><br />
+        <button (click)="retainLogin('/employees')">Employees</button><br />
+        <button (click)="retainLogin('/calendar')">Calendar</button><br />
+        <button class="content" (click)="logOut()">Log Out</button>
+      </div>
+    </ng-sidebar>
+
+    <!-- Page content -->
+    <div ng-sidebar-content>
+      <router-outlet></router-outlet>
+      <div></div>
+    </div>
+  </ng-sidebar-container>
 </div>

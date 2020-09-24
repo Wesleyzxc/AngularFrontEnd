@@ -1,11 +1,27 @@
 .header {
-  background: rgb(43, 139, 248);
+  display: flex;
+  flex-direction: column;
+  background: #0e4686;
   color: #fff;
   text-align: center;
   padding: 10px;
+  box-shadow: 5px 10px 10px 0 #afa6a6;
 }
 
 .header a {
   color: #fff;
   text-decoration: none;
+}
+
+.header button {
+  margin-left: auto;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 15px 32px;
+  font-weight: 400;
+  border: none;
+}
+
+h1 {
+  font-size: x-large;
 }

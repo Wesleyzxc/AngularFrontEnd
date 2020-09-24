@@ -1,1 +1,18 @@
-<p style="text-align: center">Welcome to my front-end!</p>
+<div class="mainLoggedout" *ngIf="!tokenService.loggedIn">
+  <br />
+  <!-- test component for home page -->
+  Please log in
+</div>
+
+<div class="main" *ngIf="tokenService.loggedIn">
+  <br />
+  <!-- Display tiles [ Total Organization, Total Departments, Total Employees ] under that user.
+Chart with x axis time and y axis organization, department & employees count when added. Chart will have two option 1M, 1Y selection.
+1M: How many organization, department and employees added in selected month
+1Y: How many organization, department and employees added in selected Year -->
+  <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
+    <mat-grid-tile colspan="2">Total Organisation</mat-grid-tile>
+    <mat-grid-tile>Total Departments</mat-grid-tile>
+    <mat-grid-tile>Total Employees</mat-grid-tile>
+  </mat-grid-list>
+</div>
