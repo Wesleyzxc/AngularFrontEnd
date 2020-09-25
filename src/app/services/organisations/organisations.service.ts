@@ -9,7 +9,7 @@ export class OrganisationsService {
   constructor(private http: HttpClient, public tokenService: TokenService) {}
 
   url: string = 'http://localhost:3000'; // local env
-  getDepartments(token: string) {
+  getOrganisations(token: string) {
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
@@ -17,7 +17,15 @@ export class OrganisationsService {
     return this.http.get(this.url + '/org/select', { headers: reqHeader });
   }
 
-  addDepartment(token: string, orgName, owner, address, city, state, country) {
+  addOrganisation(
+    token: string,
+    orgName,
+    owner,
+    address,
+    city,
+    state,
+    country
+  ) {
     let params = [
       { name: 'address', value: address },
       { name: 'city', value: city },
@@ -34,5 +42,27 @@ export class OrganisationsService {
       if (data.value) reqHeader = reqHeader.append(data.name, data.value);
     });
     return this.http.post(this.url + '/org/add', null, { headers: reqHeader });
+  }
+
+  updateOrg(token: string, orgName, owner, address, city, state, country) {
+    let params = [
+      { name: 'address', value: address },
+      { name: 'city', value: city },
+      { name: 'state', value: state },
+      { name: 'country', value: country },
+    ];
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+      organisation_name: orgName,
+      owner: owner,
+    });
+    params.map((data) => {
+      if (data.value) reqHeader = reqHeader.append(data.name, data.value);
+    });
+
+    return this.http.put(this.url + '/org/update', null, {
+      headers: reqHeader,
+    });
   }
 }

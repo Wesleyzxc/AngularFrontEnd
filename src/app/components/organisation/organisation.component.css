@@ -17,10 +17,24 @@ button:hover {
 }
 
 table {
-  margin-top: 5%;
-  border: 1px solid;
+  border: 1px solid grey;
   text-align: left;
-  width: 100%;
+  margin: auto;
+  margin-top: 5%;
+  width: 80%;
+  background-color: white;
+}
+
+td {
+  border-top: 1px solid grey;
+  border-collapse: collapse;
+}
+​ .mat-row {
+  background-color: white;
+}
+.mat-cell,
+.mat-header-cell {
+  color: black;
 }
 
 .input {
@@ -43,4 +57,19 @@ label {
   color: #495057;
   text-align: left;
   font-weight: 600;
+}
+
+.form {
+  text-align: center;
+}
+
+.edit {
+  margin-left: auto;
+  border: none;
+  padding: 5px 16px;
+  background-color: white;
+}
+
+::ng-deep.mat-dialog-container {
+  background-color: white !important;
 }

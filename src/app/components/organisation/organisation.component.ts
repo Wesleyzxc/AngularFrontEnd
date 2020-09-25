@@ -1,10 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TokenService } from '../../services/token.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OrganisationsService } from '../../services/organisations/organisations.service';
 import { Organisation } from '../../model';
 import { CountriesService } from '../../services/countries.service';
-import { Router } from '@angular/router';
+import { Sort } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DialogComponent } from './dialog/dialog.component';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-organisation',
@@ -15,9 +22,9 @@ export class OrganisationComponent implements OnInit {
   constructor(
     public tokenService: TokenService,
     private orgService: OrganisationsService,
-    private router: Router,
     private formBuilder: FormBuilder,
-    private countries: CountriesService
+    private countries: CountriesService,
+    public dialog: MatDialog
   ) {}
 
   organisations: Organisation[];
@@ -31,6 +38,7 @@ export class OrganisationComponent implements OnInit {
     'City',
     'State',
     'Country',
+    'View',
   ];
   dbColumns: string[] = [
     'organisation_name',
@@ -39,6 +47,7 @@ export class OrganisationComponent implements OnInit {
     'city',
     'state',
     'country',
+    'id',
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   addOrg: boolean = false;
@@ -52,10 +61,12 @@ export class OrganisationComponent implements OnInit {
   });
   errorMsg: string = '';
   saveMsg: string = '';
+  editMsg: string = '';
+
   ngOnInit(): void {
     this.getCountries();
     this.orgService
-      .getDepartments(this.tokenService.token)
+      .getOrganisations(this.tokenService.token)
       .subscribe((orgs) => {
         this.organisations = orgs['results'];
       });
@@ -91,9 +102,8 @@ export class OrganisationComponent implements OnInit {
       // valid details
       this.errorMsg = '';
       if (this.tokenService.loggedIn) {
-        //TODO add org here
         this.orgService
-          .addDepartment(
+          .addOrganisation(
             this.tokenService.token,
             orgName,
             owner,
@@ -107,7 +117,7 @@ export class OrganisationComponent implements OnInit {
             this.saveMsg = 'Entry saved successfully';
             this.errorMsg = '';
             this.orgService
-              .getDepartments(this.tokenService.token)
+              .getOrganisations(this.tokenService.token)
               .subscribe((orgs) => {
                 this.organisations = orgs['results'];
               });
@@ -146,4 +156,61 @@ export class OrganisationComponent implements OnInit {
     if (value == undefined) return null;
     return value[output];
   }
+
+  openOrgDetails(id: number) {
+    let data = this.organisations.find((row) => row.id === id);
+    this.editMsg = '';
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: data,
+      panelClass: 'edit-org',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.orgService
+          .updateOrg(
+            this.tokenService.token,
+            result['organisation_name'],
+            result['owner'],
+            result['address'],
+            result['city'],
+            result['state'],
+            result['country']
+          )
+          .toPromise()
+          .then(() => (this.editMsg = 'Changes saved successfully'));
+      }
+    });
+  }
+
+  sortData(sort: Sort) {
+    const data = this.organisations.slice();
+    if (!sort.active || sort.direction === '') {
+      this.organisations = data;
+      return;
+    }
+
+    this.organisations = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'Organisation Name':
+          return compare(a.organisation_name, b.organisation_name, isAsc);
+        case 'Owner':
+          return compare(a.owner, b.owner, isAsc);
+        case 'Address':
+          return compare(a.address, b.address, isAsc);
+        case 'City':
+          return compare(a.city, b.city, isAsc);
+        case 'State':
+          return compare(a.state, b.state, isAsc);
+        case 'Country':
+          return compare(a.country, b.country, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

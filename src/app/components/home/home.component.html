@@ -1,7 +1,9 @@
 <div class="mainLoggedout" *ngIf="!tokenService.loggedIn">
   <br />
   <!-- test component for home page -->
-  Please log in
+  <h1 style="margin-top: 5%">
+    Please <a href="/login">log in</a> or <a href="/register">register</a>
+  </h1>
 </div>
 
 <div class="main" *ngIf="tokenService.loggedIn">
