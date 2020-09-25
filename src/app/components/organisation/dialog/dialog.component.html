@@ -1,0 +1,70 @@
+<div class="main">
+  <h1 mat-dialog-title>Edit Organisation</h1>
+  <div mat-dialog-content>Please edit organisation and click save.</div>
+  <div class="input">
+    <label for="orgName"> Organisation Name:</label>
+    <input
+      matInput
+      [(ngModel)]="data.organisation_name"
+      value="{{ data.organisation_name }}"
+    />
+  </div>
+  <div class="input">
+    <label for="owner">Owner:</label>
+    <input [(ngModel)]="data.owner" name="owner" value="{{ data.owner }}" />
+  </div>
+  <div class="input">
+    <label for="address">Address:</label>
+    <input
+      [(ngModel)]="data.address"
+      name="address"
+      value="{{ data.address }}"
+    />
+  </div>
+
+  <div class="input">
+    <label>Country: </label>
+    <select
+      [(ngModel)]="data.country"
+      class="form-control"
+      (change)="onChangeCountry($event.target.value)"
+    >
+      <option value="{{ data.country }}">{{ data.country }}</option>
+      <option
+        *ngFor="let country of countryInfo"
+        value="{{ country.CountryName }}"
+      >
+        {{ country.CountryName }}
+      </option>
+    </select>
+  </div>
+
+  <div class="input">
+    <label>State:</label>
+    <select
+      class="form-control"
+      (change)="onChangeState($event.target.value)"
+      [(ngModel)]="data.state"
+    >
+      <option value="{{ data.state }}">{{ data.state }}</option>
+      <option *ngFor="let state of stateInfo" value="{{ state.StateName }}">
+        {{ state.StateName }}
+      </option>
+    </select>
+  </div>
+
+  <div class="input">
+    <label>City:</label>
+    <select class="form-control" [(ngModel)]="data.city">
+      <option value="{{ data.city }}">{{ data.city }}</option>
+      <option *ngFor="let city of cityInfo" value="{{ city }}">
+        {{ city }}
+      </option>
+    </select>
+  </div>
+  <div class="input" mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data">Submit</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+  <div mat-dialog-actions></div>
+</div>

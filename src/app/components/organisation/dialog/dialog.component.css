@@ -1,0 +1,19 @@
+.main {
+  padding: 10px;
+  color: black;
+}
+.input {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+input,
+.form-control {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  padding: 5px;
+}
