@@ -65,4 +65,16 @@ export class OrganisationsService {
       headers: reqHeader,
     });
   }
+
+  deleteOrg(token: string, id: number) {
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+      id: id.toString(),
+    });
+
+    return this.http.post(this.url + '/org/delete', null, {
+      headers: reqHeader,
+    });
+  }
 }

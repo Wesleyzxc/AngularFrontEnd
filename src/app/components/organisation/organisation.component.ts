@@ -38,7 +38,7 @@ export class OrganisationComponent implements OnInit {
     'City',
     'State',
     'Country',
-    'View',
+    'Actions',
   ];
   dbColumns: string[] = [
     'organisation_name',
@@ -180,6 +180,24 @@ export class OrganisationComponent implements OnInit {
           .then(() => (this.editMsg = 'Changes saved successfully'));
       }
     });
+  }
+
+  deleteOrg(id: number) {
+    if (confirm(id.toString())) {
+      console.log('delete ' + id);
+      this.orgService
+        .deleteOrg(this.tokenService.token, id)
+        .toPromise()
+        .then(() => {
+          this.editMsg = 'Entry deleted successfully';
+          this.orgService
+            .getOrganisations(this.tokenService.token)
+            .subscribe((orgs) => {
+              this.organisations = orgs['results'];
+            });
+        });
+    } else {
+    }
   }
 
   sortData(sort: Sort) {
