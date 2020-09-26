@@ -14,36 +14,63 @@ export class HomeComponent implements OnInit {
     private orgService: OrganisationsService
   ) {}
   organisations: Organisation[];
-
+  date: any; // ["2020-09", "2020-10" ] format with duplicates
+  labels: any; // same format as date but unique
   ngOnInit(): void {
     this.orgService
       .getOrganisations(this.tokenService.token)
       .subscribe((orgs) => {
         this.organisations = orgs['results'];
+        this.getDate(this.organisations); // gets all dates
+        this.labels = this.getUnique(this.date); // get unique dates
+        let yVal = new Array(this.labels.length);
+        this.labels.map((eachDate, index) => {
+          yVal[index] = this.upToDate(eachDate); // get organisation count to date
+        });
+        let dataPoints = [];
+        for (var i = 0; i < this.labels.length; i++) {
+          dataPoints.push({ y: yVal[i], label: this.labels[i] }); // create array for graph
+        }
         let chart = new CanvasJS.Chart('organisation', {
           animationEnabled: true,
           exportEnabled: true,
           title: {
-            text: 'Basic Column Chart in Angular',
+            text: 'Organisation growth',
           },
           data: [
             {
-              type: 'column',
-              dataPoints: [
-                { y: 71, label: 'Apple' },
-                { y: 55, label: 'Mango' },
-                { y: 50, label: 'Orange' },
-                { y: 65, label: 'Banana' },
-                { y: 95, label: 'Pineapple' },
-                { y: 68, label: 'Pears' },
-                { y: 28, label: 'Grapes' },
-                { y: 34, label: 'Lychee' },
-                { y: 14, label: 'Jackfruit' },
-              ],
+              type: 'line',
+              dataPoints: dataPoints,
             },
           ],
         });
         chart.render();
       });
+  }
+
+  getDate(orgs: Organisation[]) {
+    let date = [];
+    orgs.map((org) => {
+      let dateSplit = org.submission_date.split('-');
+      let year = dateSplit[0];
+      let month = dateSplit[1];
+      date.push(year + '-' + month);
+    });
+    this.date = date;
+  }
+
+  getUnique(dateArr) {
+    var unique = dateArr.filter(function (itm, i, a) {
+      return i == a.indexOf(itm);
+    });
+    return unique;
+  }
+
+  upToDate(date) {
+    let count = 0;
+    this.date.map((eachDate) => {
+      if (eachDate <= date) count++;
+    });
+    return count;
   }
 }
