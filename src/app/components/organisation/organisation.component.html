@@ -99,11 +99,19 @@
           mat-button
           (click)="openOrgDetails(org[dbColumns[i]])"
           class="edit"
-          *ngIf="column === 'View'"
+          *ngIf="column === 'Actions'"
         >
           Edit
         </button>
-        <div *ngIf="column !== 'View'">{{ org[dbColumns[i]] }}</div>
+        <button
+          mat-button
+          (click)="deleteOrg(org[dbColumns[i]])"
+          class="edit"
+          *ngIf="column === 'Actions'"
+        >
+          Delete
+        </button>
+        <div *ngIf="column !== 'Actions'">{{ org[dbColumns[i]] }}</div>
       </td>
     </ng-container>
 
