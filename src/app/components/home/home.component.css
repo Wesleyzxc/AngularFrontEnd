@@ -1,19 +1,8 @@
 .main {
   text-align: center;
-  padding-left: 30%;
 }
 
-.mainLoggedout {
-  text-align: center;
-}
-
-mat-grid-tile {
-  background: lightblue;
-  flex-wrap: wrap;
-}
-
-mat-grid-list {
-  display: flex;
-  justify-content: space-evenly;
-  width: 80%;
+.graph {
+  padding-top: 10%;
+  margin: 0 auto;
 }

@@ -1,4 +1,4 @@
-<div class="mainLoggedout" *ngIf="!tokenService.loggedIn">
+<div class="main" *ngIf="!tokenService.loggedIn">
   <br />
   <!-- test component for home page -->
   <h1 style="margin-top: 5%">
@@ -12,9 +12,7 @@
 Chart with x axis time and y axis organization, department & employees count when added. Chart will have two option 1M, 1Y selection.
 1M: How many organization, department and employees added in selected month
 1Y: How many organization, department and employees added in selected Year -->
-  <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
-    <mat-grid-tile colspan="2">Total Organisation</mat-grid-tile>
-    <mat-grid-tile>Total Departments</mat-grid-tile>
-    <mat-grid-tile>Total Employees</mat-grid-tile>
-  </mat-grid-list>
+  <div class="graph" id="organisation" style="height: 370px; width: 80%"></div>
+  <div class="graph" id="department" style="height: 370px; width: 80%"></div>
+  <div class="graph" id="employee" style="height: 370px; width: 80%"></div>
 </div>

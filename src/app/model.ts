@@ -6,4 +6,5 @@ export class Organisation {
   city: string;
   state: string;
   country: string;
+  submission_date: string;
 }
